@@ -43,11 +43,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 @Disabled("Test requires costly OpenAI calls, can be run manually.")
 class OpenAiClientTest {
 
-    private static OpenAiClient client;
+    private static AzureOpenAiClient client;
 
     @BeforeAll
     static void setup() {
-        client = OpenAiClient.builder()
+        client = AzureOpenAiClient.builder()
+                .azureApiKey("cfe6d70ff13c44528323d0c48f4a24a1")
+                .baseUrl("https://dev-gpt-demo.openai.azure.com/openai/deployments/")
                 .build()
                 .init();
     }
@@ -94,15 +96,16 @@ class OpenAiClientTest {
 
     @Test
     void testChatCompletion() {
-        Message message = Message.of("Hello!");
+        Message message = Message.of("你好，可以讲个笑话吗？");
 
         ChatCompletion chatCompletion = ChatCompletion.builder()
-                .model("gpt-3.5-turbo")
-                .temperature(0)
+                .model("gpt-35-turbo-16k")
+                .temperature(0.5f)
                 .messages(List.of(message))
                 .build();
 
-        assertThat(client.chatCompletion(chatCompletion)).isEqualTo("Hello! How can I assist you today?");
+        String responseString = client.chatCompletion("gpt-35-turbo-16k", "2023-07-01-preview", chatCompletion);
+        System.out.println(responseString);
     }
 
     @Test

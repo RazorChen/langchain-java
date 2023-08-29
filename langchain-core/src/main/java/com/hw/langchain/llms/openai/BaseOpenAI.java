@@ -97,6 +97,11 @@ public class BaseOpenAI extends BaseLLM {
     protected String openaiApiKey;
 
     /**
+     * API key for Azure OpenAI.
+     */
+    protected String azureApiKey;
+
+    /**
      * Base URL for OpenAI API.
      */
     protected String openaiApiBase;

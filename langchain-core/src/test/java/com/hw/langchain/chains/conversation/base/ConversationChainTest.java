@@ -47,6 +47,8 @@ class ConversationChainTest {
     @Test
     void testConversationChainWithLLM() {
         var llm = OpenAI.builder()
+                .azureApiKey("cfe6d70ff13c44528323d0c48f4a24a1")
+                .openaiApiBase("https://dev-gpt-demo.openai.azure.com/openai/deployments/gpt-4-32k/chat/completions?api-version=2023-05-15")
                 .temperature(0)
                 .build()
                 .init();
